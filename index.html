@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>UK Obesity</title>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/heatmap.js"></script>
+    <script src="https://code.highcharts.com/modules/treemap.js"></script>
+    <script src="http://code.highcharts.com/maps/modules/map.js"></script>
+    <script src="http://code.highcharts.com/maps/modules/data.js"></script>
+    <script src="http://code.highcharts.com/mapdata/custom/world.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="main.css" />
+  </head>
+
+  <body>
+    <div class="panel left-panel">
+      <button
+        id="previous-btn"
+        class="panel-btn previous hide"
+        onclick="changePage('back')"
+      >
+        <i class="fas fa-arrow-left"></i>
+      </button>
+    </div>
+    <nav>
+      <div>
+        <ul>
+          <li class="nav-item active" id="home">Home</li>
+          <li class="nav-item" id="prevalence" onclick="switchPages(event)">
+            Prevalence
+          </li>
+          <li class="nav-item" id="causes" onclick="switchPages(event)">
+            Causes
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="page home active" value="1">
+      <div class="slide slide-home">
+        <div class="banner">
+          <h1>
+            <span>64.31%</span><br />
+            of adults in England are either overweight, obese<br />
+            or morbidly obese
+          </h1>
+        </div>
+        <div class="obesity-graphic">
+          <h1 class="burger burger1"><i class="fas fa-hamburger"></i></h1>
+          <h1 class="burger burger2"><i class="fas fa-hamburger"></i></h1>
+          <h1 class="burger burger3"><i class="fas fa-hamburger"></i></h1>
+          <h1 class="burger burger4"><i class="fas fa-hamburger"></i></h1>
+          <h1 class="burger burger5"><i class="fas fa-hamburger"></i></h1>
+          <div>
+            <h1>Underweight</h1>
+          </div>
+          <div>
+            <h1>Normal</h1>
+          </div>
+          <div>
+            <h1>Overweight</h1>
+          </div>
+          <div>
+            <h1>Obese</h1>
+          </div>
+          <div>
+            <h1>Morbidly Obese</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page prevalence" value="2">
+      <div class="slide slide-prevalence">
+        <div class="slide-section slide-title">
+          <h1>Prevalence of Obesity in England</h1>
+        </div>
+        <div class="slide-section slide-left">
+          <div class="options">
+            <h2 class="filter-title">Filter Options</h2>
+            <p>Select one option from each drop down menu</p>
+            <h3>Select Map Metric</h3>
+            <select id="selectedMetric" onchange="changeMap()">
+              <option value="admissions">Obesity Admissions</option>
+              <option value="admissionsPer"
+                >Obesity Admissions Per 100,000</option
+              >
+              <option value="BMI">Average BMI</option>
+            </select>
+            <h3>Select Gender (All Charts)</h3>
+            <select
+              id="selectedGroup"
+              onchange="changeMap(); changeOtherCharts();"
+            >
+              <option value="All">All</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+          <div class="selection">
+            <h2 class="secondary-title">Statistics</h2>
+            <div class="stats england">
+              <h3 class="stats-name prevalence" id="statsEngName">England</h3>
+              <h2 class="stats-num prevalence" id="statsEngNum">10075</h2>
+              <h3 class="stats-metric prevalence" id="statsEngMetric">
+                Obesity Admissions
+              </h3>
+            </div>
+            <div class="stats selected">
+              <h3 class="stats-name prevalence" id="statsSelectedName">
+                London
+              </h3>
+              <h2 class="stats-num prevalence" id="statsSelectedNum">2274</h2>
+              <h3 class="stats-metric prevalence" id="statsSelectedMetric">
+                Obesity Admissions
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="slide-section slide-centre">
+          <div class="chart" id="container"></div>
+        </div>
+        <div class="slide-section slide-right">
+          <div class="chart" id="container2"></div>
+          <div class="chart" id="container3"></div>
+        </div>
+      </div>
+    </div>
+    <div class="page causes" value="3">
+      <div class="slide slide-causes">
+        <div class="slide-section slide-title">
+          <h1>Causes of Obesity</h1>
+        </div>
+        <div class="slide-section slide-left">
+          <div class="options" id="causes-options">
+            <h2 class="filter-title">Filter Options</h2>
+            <p>Select one option from each drop down menu</p>
+            <h3>Select Map Metric</h3>
+            <select id="selectedCausesMetric" onchange="changeCauseMap();">
+              <option value="outlets"
+                >Food Outlets Per 100,000 of Population</option
+              >
+              <option value="vegFruitPurchases"
+                >Average Fruit & Veg Purchases Per Person Per Week (g)
+              </option>
+              <option value="bingeDrinking"
+                >Percentage of Adults Consuming 35+ Units Per Week
+              </option>
+              <option value="alcoholPurchases"
+                >Average Alcohol Purchases Per Person Per Week (ml)
+              </option>
+              <option value="physicallyInactive"
+                >Percentage of Adults Physically Inactive
+              </option>
+              <option value="walking"
+                >Percentage of Adults Walking for Travel 3+ Time Per Week
+              </option>
+              <option value="income"
+                >Gross Disposable Household Income Per Head (£)
+              </option>
+            </select>
+          </div>
+          <div class="selection">
+            <h2 class="secondary-title">Statistics</h2>
+            <div class="stats england">
+              <h3 class="stats-name causes" id="statsEngNameCauses">England</h3>
+              <h2 class="stats-num causes" id="statsEngNumCauses">125.4</h2>
+              <h3 class="stats-metric causes" id="statsEngMetricCauses">
+                Fast Food Outlets
+              </h3>
+            </div>
+            <div class="stats selected">
+              <h3 class="stats-name causes" id="statsSelectedNameCauses">
+                London
+              </h3>
+              <h2 class="stats-num causes" id="statsSelectedNumCauses">74.6</h2>
+              <h3 class="stats-metric causes" id="statsSelectedMetricCauses">
+                Fast Food Outlets
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="slide-section slide-centre">
+          <div class="chart" id="container4"></div>
+        </div>
+        <div class="slide-section slide-right">
+          <div class="chart" id="container5"></div>
+          <div class="chart" id="container6"></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel right-panel">
+      <button id="next-btn" class="panel-btn next" onclick="changePage('next')">
+        <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="prevalence.js"></script>
+    <script src="causes.js"></script>
+  </body>
+</html>

@@ -1,0 +1,371 @@
+$first_colour: black;
+$second_colour: white;
+$third_colour: #76D7C4;
+$four_colour: #d1d1d1;
+@mixin easeOutMed {
+    transition: all 1s ease-out;
+  }
+@mixin easeOutFast {
+    transition: all 0.5s ease-out;
+  }
+@mixin easeInFast {
+    transition: all 0.5s ease-in;
+  }
+
+html, body{
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.left-panel{
+    left: 0px;
+}
+
+.right-panel{
+    right: 0px;
+}
+
+.panel{
+    position: absolute;
+    width: 120px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.panel-btn{
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    z-index: 1000;
+    font-size: 2rem;
+    border: none;
+    border-radius: 50%;
+    outline: none;
+    visibility: visible;
+    opacity: 1;
+    z-index: 200;
+    &:hover {
+        color: $second_colour;
+        background-color: $third_colour;
+    }
+    &.hide{
+        visibility: hidden;
+        opacity: 0;
+        z-index: -100;
+    }
+    @include easeOutMed();
+    
+}
+
+nav{
+    position: absolute;
+    top: 0px;
+    left: 120px;
+    width: calc(100% - 240px);
+    height: 60px;
+    margin-top: 60px;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    div{
+        width: 90%;
+        ul{ 
+            list-style: none;
+            li{
+                height: 60px;
+                float: left;
+                background-color: $second_colour;
+                font-size: 2rem;
+                font-weight: bold;
+                padding: 10px 20px;
+                &.active {
+                    color: $second_colour;
+                    background-color: $first_colour;
+                    &:hover{
+                        background-color: $first_colour;
+                        color: $third_colour;
+                    }
+                }
+                &:hover{
+                    background-color: $third_colour;
+                    color: $second_colour;
+                    cursor: pointer;
+                }
+            }
+        }
+
+    }
+    
+    *{
+        @include easeOutFast();
+    }
+}
+
+.page{
+    position: absolute;
+    top: 120px;
+    left: 120px;
+    width: calc(100% - 240px);
+    height: calc(100% - 240px);
+    display: flex;
+    justify-content: center;
+    &.home{
+        left: 120px;
+    }
+    &.prevalence{
+        left: 100%;
+    } 
+    &.causes{
+        left: 200%;
+        // left: 120px;
+    }
+        @include easeOutFast();
+    
+}
+  
+.slide{
+    width: 90%;
+    height: 100%;
+    background-color: $first_colour;
+    display: grid;
+    grid-template-areas: "left title title" "left centre right";
+    grid-template-columns: 25% 40% 35%;
+    grid-template-rows: 80px auto;
+    &.slide-home{
+        grid-template-areas: "banner banner banner" "graphic graphic graphic" "footer footer footer";
+        grid-template-rows: 40% 50% 10%;
+        .banner{
+            grid-area: banner;
+            display: flex;
+            align-self: center;
+            justify-self: center;
+            h1{
+                span{
+                    font-size: 5rem;
+                }
+                color:white;
+                text-align: center;
+                font-size: 3rem;
+            }
+    }
+    .obesity-graphic{
+        justify-self: center;
+        width: 90%;
+        grid-area: graphic;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: 80% 20%;
+        align-items: center;
+        justify-items: center;
+        h1{
+            color: white;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+        .burger1{
+            font-size: 2rem;
+            span{
+                font-size: 0.5rem;
+            }
+        }
+        .burger2{
+            font-size: 10.5rem;
+            span{
+                font-size: 2rem;
+            }
+        }
+        .burger3{
+            font-size: 8rem;
+        }
+        .burger4{
+            font-size: 12rem;
+        }
+        .burger5{
+            font-size: 2.5rem;
+        }
+    }
+}
+    .slide-section{
+        align-self: center;
+        justify-self: center;
+        width: 100%;
+        height: 100%;
+        padding: 0px;
+    }
+    .slide-title{
+        border-top: 2px solid $third_colour;
+        grid-area: title;
+        padding: 0px;
+        background-color: $four_colour;
+        display: grid;
+        align-items: center;
+        h1{
+            color: $first_colour;
+            padding-left: 40px;
+        }
+    }
+    .slide-left{
+        padding: 0;
+        grid-area: left;
+        border-top: none;
+        border-left: none;
+        display: grid;
+        grid-template-rows: 50% 50%;
+    }
+    .slide-centre{
+        grid-area: centre;
+        padding: 10px 0px 0px 10px;
+    }
+    .slide-right{
+        grid-area: right;
+        border-right: none;
+        border-left: none;
+        display: grid;
+        grid-template-rows: 55% 45%;
+        padding: 10px 10px 0px 0px;
+        .chart{ 
+            display: flex;
+            align-self: center;
+            justify-self: center;
+        }
+    }
+}
+
+.slide-causes{
+    grid-template-columns: 25% 35% 40%;
+    .slide-centre{
+        grid-area: right;
+        padding: 10px 10px 0px 0px;
+    }
+    .slide-right{
+        grid-area: centre;
+        grid-template-rows: 50% 50%;
+        padding: 10px 0px 0px 10px;
+    }
+    .slide-left{
+        grid-template-rows: 35% 65%;
+        #causes-options{
+            grid-template-rows: 80px repeat(3, 1fr);
+        }
+    }
+}
+
+.options{
+    border-top: 2px solid $third_colour;
+    display: grid;
+    grid-template-rows: 80px repeat(5, 1fr);
+    background-color: $third_colour;
+    justify-items: center;
+    align-items: center;
+    *{
+        display: flex;
+        align-items: center;
+        width: 90%;
+        height: 90%;
+        color: black;
+    }
+    h3{
+        background-color: $four_colour;
+        height: 70%;
+        font-weight: normal;
+        padding: 0px 10px;
+    }
+    select{
+        width: 90%;
+        height: 70%;
+        border: none;
+        border-radius: 0; 
+        -webkit-appearance: none;
+        align-self: start;
+        font-size: 1rem;
+        padding: 0px 10px;
+        &:hover{
+            background-color: $four_colour;
+            color: $first_colour;
+            font-weight: bold;
+        }
+
+    }
+
+    .filter-title{
+        font-size: 2rem;
+        background-color: $third_colour;
+        font-weight: bold;
+
+    }
+    *{
+        @include easeOutFast();
+    }
+}
+
+.selection{
+    border-right: solid 2px $third_colour;
+    display: grid;
+    grid-template-rows: 80px auto auto;
+    .secondary-title{
+        color: $second_colour;
+        font-size: 2rem;
+        justify-self: center;
+        align-self: center;
+        width: 90%;
+    }
+    .stats{
+        display: grid;
+        justify-items: center;
+        .stats-name{
+            align-items: center;
+            font-weight: normal;
+            background-color: $third_colour;
+            padding: 0px 10px;
+        }
+        .stats-num{
+            font-size: 2rem;
+            padding: 5px 0px;
+            align-items: center;
+            
+        }
+        .stats-metric{
+            font-weight: normal;
+            color: $third_colour;
+        }
+
+        *{
+            display: flex;
+            color: $second_colour;
+            width: 90%;
+        }
+    }
+}
+
+.chart{
+    height: 100%;
+    width: 100%;
+}
+
+#container{
+    padding: 0px 0px 20px 0px;
+}
+
+#container2{
+    width: 75%;
+    padding: 0px 0px 20px 0px;
+}
+
+#container3{
+    padding: 0px 20px 20px 0px;
+    width: 80%;
+}
+
+#container5{
+    width: 100%;
+}
